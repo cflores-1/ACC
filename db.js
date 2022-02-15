@@ -11,12 +11,12 @@ const facilities = ['tennis', 'ping-pong', 'raquet-ball', 'bowling'];
 
 const syncAndSeed = async()=> {
   await conn.sync({ force: true }); //
-  const [moe, lucy, larry, ethyl ] = await Promise.all(members.map( firstName => Member.create({ firstName })));
-  moe.sponsorId = lucy.id;
-  ethyl.sponsorId = moe.id;
+  const [moe, lucy, larry, ethyl ] = await Promise.all(members.map( firstName => Member.create({ firstName }))); //the Promise must occur before assigning the id's
+  moe.sponsorId = lucy.id; //assigning lucy's id to moes.sponserId in the database
+  ethyl.sponsorId = moe.id; //assigning moe's id to ethyl's sponserId 
   larry.sponsorId = lucy.id;
   await Promise.all([moe.save(), ethyl.save(), larry.save()]);
-  const [tennis, pingPong, raquetBall, bowling] = await Promise.all(
+  const [tennis, pingPong, raquetBall, bowling] = await Promise.all( //the output is a list of resolved promises
     facilities.map( fac_name => Facility.create({ fac_name }))
   );
   await Promise.all([

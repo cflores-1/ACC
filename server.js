@@ -13,7 +13,37 @@ app.get('/api/facilities', async(req, res, next)=> {
     catch(ex){
       next(ex);
     }
-  });
+});
+
+//GET /api/bookings
+app.get('/api/bookings', async(req, res, next)=> {
+    try {
+      res.send(await Booking.findAll({
+        include: [ Facility, {
+          model: Member,
+          as: 'bookedBy'
+        }]
+      }));
+    }
+    catch(ex){
+      next(ex);
+    }
+});
+
+//GET /api/members
+app.get('/api/members', async(req, res, next)=> {
+    try {
+      res.send(await Member.findAll({
+        include: [
+          { model: Member, as: 'sponsor' },
+          { model: Member, as: 'sponsored' }
+        ]
+      }));
+    }
+    catch(ex){
+      next(ex);
+    }
+});
 
 const setUp = async()=> { //goes with the await to seed the db
     try {
