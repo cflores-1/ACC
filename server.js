@@ -7,7 +7,7 @@ const { models: { Facility, Member, Booking } } = db;
 app.get('/api/facilities', async(req, res, next)=> {
     try {
       res.send(await Facility.findAll({
-        include: [ Booking ]
+        include: [ Booking ] //find all that include Booking 
       }));
     }
     catch(ex){

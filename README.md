@@ -1,3 +1,7 @@
+##Express & Sequelize Example
+
+- Models and their associations
+
 1. create my databse
    in terminal:
    createdb acme_db

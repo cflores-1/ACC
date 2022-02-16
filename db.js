@@ -31,6 +31,7 @@ const syncAndSeed = async()=> {
   ]);
 };
 
+//creating Member, Facility, and Booking Models:
 const Member = conn.define('member', {
   id: {
     primaryKey: true,
@@ -85,10 +86,11 @@ const Booking = conn.define('booking', {
 //Associations:
 //The A.belongsTo(B) association means that a One-To-One relationship exists between A and B, 
     //with the foreign key being defined in the source model (A).
-Member.belongsTo(Member, { as: 'sponsor'});
 
 //The A.hasMany(B) association means that a One-To-Many relationship exists between A and B, 
-    //with the foreign key being defined in the target model (B).
+    //with the foreign key being defined in the target model (B).    
+
+Member.belongsTo(Member, { as: 'sponsor'});
 Member.hasMany(Member, { as: 'sponsored', foreignKey: 'sponsorId'});
 
 Booking.belongsTo(Member, { as: 'bookedBy'});
